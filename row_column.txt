@@ -1,0 +1,41 @@
+def encryption(msg_list):
+	mat=[]
+	msg_index=0
+	cipher=[]
+	while msg_index!=len(msg_list):
+		temp = []
+		for j in range(4):
+			
+			if msg_index!=len(msg_list):
+				if msg_list[msg_index]==" ":
+					msg_index+=1
+				temp.append(msg_list[msg_index])
+				msg_index+=1
+			else:
+				temp.append(" ")
+		mat.append(temp)
+	for i in range(4):
+		for j in range(len(mat)):
+			cipher.append(mat[j][i])
+	return ''.join(cipher),len(mat)
+def decryption(cipher_list,count):
+	mat=[]
+	cipher_index=0
+	plain=[]
+	for i in range(4):
+		temp=[]
+		for j in range(count):
+			temp.append(cipher_list[cipher_index])
+			cipher_index+=1
+		mat.append(temp)
+	for i in range(count):
+		for j in range(4):
+			plain.append(mat[j][i])
+	return ''.join(plain)
+			
+msg = input("msg:")
+msg_list = list(msg)
+cipher,count = encryption(msg_list)
+plain = decryption(list(cipher),count)
+print("Encryption:"+cipher)
+print("Decryption:"+plain)

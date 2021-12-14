@@ -1,0 +1,19 @@
+alpha = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
+msg = input("msg:")
+msg_list = list(msg)
+key = input("key:")
+key_list = list(key)
+cipher_list = []
+key_index = 0
+for i in range(len(msg_list)):
+	cipher_list.append(alpha[(alpha.index(msg_list[i].lower())+alpha.index(key_list[key_index%len(key_list)].lower()))%26])
+	key_index+=1
+cipher = ''.join(cipher_list)
+plain_list =[]
+key_index=0
+for i in range(len(cipher_list)):
+	plain_list.append(alpha[(alpha.index(cipher_list[i].lower())-alpha.index(key_list[key_index%len(key_list)].lower()))%26])
+	key_index+=1
+plain = ''.join(plain_list)
+print('encrypted:'+cipher)
+print('decrypted:'+plain)

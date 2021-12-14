@@ -1,0 +1,12 @@
+from Crypto.Cipher import AES
+key = 'hello12345678913'
+def pad(text):
+        while len(text) % 16 != 0:
+        	text += " "
+        return text
+des = AES.new(key, AES.MODE_ECB)
+text1 = 'Secret Information'
+padded_text = pad(text1)
+encrypted_text = des.encrypt(padded_text)
+print(encrypted_text)
+print(des.decrypt(encrypted_text))

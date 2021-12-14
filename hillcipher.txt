@@ -1,0 +1,78 @@
+alpha = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
+def encryption(msg_matrix,key_matrix):
+	result = []
+	for i in range(len(msg_matrix)):
+		temp=[]
+		for j in range(len(key_matrix[0])):
+			temp.append(0)
+		result.append(temp)
+	for i in range(len(msg_matrix)):
+		for j in range(len(key_matrix[0])):
+			for k in range(len(key_matrix)):
+            			result[i][j] += (msg_matrix[i][k] * key_matrix[k][j])
+			result[i][j]%=26
+			
+	return result
+def decryption(cipher_matrix,key_mat_inverse):
+	result=[]
+	for i in range(len(cipher_matrix)):
+		temp=[]
+		for j in range(len(key_mat_inverse[0])):
+			temp.append(0)
+		result.append(temp)
+	'''for i in range(3):
+		for j in range(3):
+			key_mat_inverse[i][j]%=26'''
+	for i in range(len(cipher_matrix)):
+		for j in range(len(key_mat_inverse[0])):
+			for k in range(len(key_mat_inverse)):
+            			result[i][j] += (cipher_matrix[i][k] * key_mat_inverse[k][j])
+			result[i][j]%=26
+			
+	return result
+	
+	
+msg = input("msg:")
+msg_list = list(msg)
+key = input("key:")
+key_list = list(key)
+key_matrix = []
+key_mat_inverse=[[-1,0,1],[2,-1,0],[-2,2,-1]]
+key_number = 0
+for i in range(3):
+	temp=[]
+	for j in range(3):
+		temp.append(alpha.index(key_list[key_number].lower()))
+		key_number+=1
+	key_matrix.append(temp)
+msg_index = 0
+cipher = []
+for i in range(len(msg_list)//3):
+	
+	msg_matrix = []
+	temp=[]
+	for j in range(3):
+		temp.append(alpha.index(msg_list[msg_index].lower()))
+		msg_index+=1
+	msg_matrix.append(temp)
+	enc=encryption(msg_matrix,key_matrix)
+	for k in enc[0]:
+		cipher.append(alpha[k])
+print("encrypted:",end="")
+print(''.join(cipher))
+cipher_index = 0
+plain = []
+for i in range(len(cipher)//3):
+	
+	cipher_matrix = []
+	temp=[]
+	for j in range(3):
+		temp.append(alpha.index(cipher[cipher_index].lower()))
+		cipher_index+=1
+	cipher_matrix.append(temp)
+	dec=decryption(cipher_matrix,key_mat_inverse)
+	for k in dec[0]:
+		plain.append(alpha[k])
+print("decrypted:",end="")
+print(''.join(plain))
+

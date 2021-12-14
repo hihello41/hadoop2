@@ -1,0 +1,51 @@
+def encryption(msg_list,depth):
+	r = depth
+	msg_index=0
+	c = len(msg_list)//depth
+	mat=[]
+	cipher=[]
+	flag=0
+	for i in range(r):
+		temp=[]
+		for j in range(c):
+			if(msg_index!=len(msg_list)):
+				temp.append(msg_list[msg_index])
+				msg_index+=depth
+			else:
+				temp.append('x')
+		mat.append(temp)
+		if flag<depth:
+			flag+=1
+		msg_index = flag
+	for i in range(r):
+		for j in range(c):
+			cipher.append(mat[i][j])
+	return ''.join(cipher)
+def decryption(cipher_list,depth):
+	r = depth
+	cipher_index=0
+	c = len(cipher_list)//depth
+	mat=[]
+	plain=[]
+	for i in range(r):
+		temp=[]
+		for j in range(c):
+			temp.append(cipher_list[cipher_index])
+			cipher_index+=1
+		mat.append(temp)
+	for i in range(c):
+		for j in range(r):
+			plain.append(mat[j][i])
+	return ''.join(plain)
+			
+			
+				
+			
+			
+msg = input("msg:")
+depth = int(input("depth:"))
+msg_list = list(msg)
+cipher=encryption(msg_list,depth)
+cipher_list = list(cipher)
+print("encrypted:"+cipher)
+print("decrypted:"+decryption(cipher_list,depth))

@@ -1,0 +1,24 @@
+alpha = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
+def encrypt(msg):
+	cipher = []
+	msg_list = list(msg)
+	for letter in msg_list:
+		cipher.append(alpha[(alpha.index(letter.lower())+3)%26])
+	return ''.join(cipher)
+
+def decrypt(cipher):
+	msg = []
+	cipher_list = list(cipher)
+	for letter in cipher_list:
+		index = alpha.index(letter.lower())
+		loc = index-3
+		if loc<0:
+			loc+=26
+		msg.append(alpha[loc])
+	return ''.join(msg)
+msg = input()
+cipher = encrypt(msg)
+plain = decrypt(cipher)
+print(cipher)
+print(' ')
+print(plain)
